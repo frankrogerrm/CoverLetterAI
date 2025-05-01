@@ -1,0 +1,44 @@
+﻿@inherits LayoutComponentBase
+
+
+<EditForm Model="jobProfile" class="container p-4">
+    <div class="mb-3">
+        <label class="form-label">Last Name:</label>
+        <InputText @bind-Value="jobProfile.LastName" class="form-control p-2" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">First Name:</label>
+        <InputText @bind-Value="jobProfile.Firstname" class="form-control p-2" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Profession:</label>
+        <InputText @bind-Value="jobProfile.Profession" class="form-control p-2" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Birth Date:</label>
+        <InputDate @bind-Value="jobProfile.BirthDate" class="form-control p-2" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email:</label>
+        <InputText @bind-Value="jobProfile.Email" type="email" class="form-control p-2" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</EditForm>
+
+@code {
+    private JobProfile jobProfile = new();
+
+    public class JobProfile
+    {
+        public string LastName { get; set; } = string.Empty;
+        public string Firstname { get; set; } = string.Empty;
+        public string Profession { get; set; } = string.Empty;
+        public DateTime? BirthDate { get; set; } = null;
+        public string Email { get; set; } = string.Empty;
+    }
+}
