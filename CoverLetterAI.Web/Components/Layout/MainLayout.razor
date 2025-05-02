@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using CoverLetterAI.Web.Components.Static
+@inherits LayoutComponentBase
 
 
 <EditForm Model="jobProfile" class="container p-4">
@@ -27,11 +28,29 @@
         <InputText @bind-Value="jobProfile.Email" type="email" class="form-control p-2" />
     </div>
 
+    <div class="mb-3">
+        <label class="form-label">My Background:</label>
+        <InputTextArea @bind-Value="jobProfile.MyBackground" type="email" class="form-control p-2" rows="10">
+        </InputTextArea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Job Post URL:</label>
+        <InputText @bind-Value="jobProfile.JobPostURL" type="text" class="form-control p-2" />
+    </div>
+
+
     <button type="submit" class="btn btn-primary mt-3">Submit</button>
 </EditForm>
 
 @code {
     private JobProfile jobProfile = new();
+
+    protected override void OnInitialized()
+    {
+        jobProfile.MyBackground = Instructions.MyBackground;
+    }
+
 
     public class JobProfile
     {
@@ -40,5 +59,7 @@
         public string Profession { get; set; } = string.Empty;
         public DateTime? BirthDate { get; set; } = null;
         public string Email { get; set; } = string.Empty;
+        public string MyBackground { get; set; } = string.Empty;
+        public string JobPostURL { get; set; } = string.Empty;
     }
 }
