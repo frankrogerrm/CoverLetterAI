@@ -1,65 +1,27 @@
-﻿@using CoverLetterAI.Web.Components.Static
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
-
-<EditForm Model="jobProfile" class="container p-4">
-    <div class="mb-3">
-        <label class="form-label">Last Name:</label>
-        <InputText @bind-Value="jobProfile.LastName" class="form-control p-2" />
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
     </div>
 
-    <div class="mb-3">
-        <label class="form-label">First Name:</label>
-        <InputText @bind-Value="jobProfile.Firstname" class="form-control p-2" />
-    </div>
+    <main>
+        <div class="top-row px-4">
+            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        </div>
 
-    <div class="mb-3">
-        <label class="form-label">Profession:</label>
-        <InputText @bind-Value="jobProfile.Profession" class="form-control p-2" />
-    </div>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
 
-    <div class="mb-3">
-        <label class="form-label">Birth Date:</label>
-        <InputDate @bind-Value="jobProfile.BirthDate" class="form-control p-2" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Email:</label>
-        <InputText @bind-Value="jobProfile.Email" type="email" class="form-control p-2" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">My Background:</label>
-        <InputTextArea @bind-Value="jobProfile.MyBackground" type="email" class="form-control p-2" rows="10">
-        </InputTextArea>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Job Post URL:</label>
-        <InputText @bind-Value="jobProfile.JobPostURL" type="text" class="form-control p-2" />
-    </div>
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>
 
 
-    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-</EditForm>
 
-@code {
-    private JobProfile jobProfile = new();
-
-    protected override void OnInitialized()
-    {
-        jobProfile.MyBackground = Instructions.MyBackground;
-    }
-
-
-    public class JobProfile
-    {
-        public string LastName { get; set; } = string.Empty;
-        public string Firstname { get; set; } = string.Empty;
-        public string Profession { get; set; } = string.Empty;
-        public DateTime? BirthDate { get; set; } = null;
-        public string Email { get; set; } = string.Empty;
-        public string MyBackground { get; set; } = string.Empty;
-        public string JobPostURL { get; set; } = string.Empty;
-    }
-}
+    <script src="js/Scripts.js"></script>

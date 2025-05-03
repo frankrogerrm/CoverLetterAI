@@ -1,17 +1,11 @@
-﻿@page "/"
-
+﻿
 @rendermode InteractiveServer
 
 @using System.Text.Json;
 @using System.Text;
 @using System.Text.RegularExpressions
 @using CoverLetterAI.Service.Services
-@using CoverLetterAI.Web.Components.Static
-@using HtmlAgilityPack;
-
 @inject ICoverLetterService coverLetterService
-@inject IJSRuntime JS
-
 
 
 <PageTitle>Home</PageTitle>
@@ -25,65 +19,10 @@
 }
 
 
-<EditForm Model="jobProfile" class="container p-4" OnSubmit="GenerateCoverLetter"
-          FormName="coverLetterForm">
-
-   <div class="mb-3">
-        <label class="form-label">First Name:</label>
-        <InputText @bind-Value="jobProfile.Firstname" class="form-control p-2" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Last Name:</label>
-        <InputText @bind-Value="jobProfile.LastName" class="form-control p-2" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Profession:</label>
-        <InputText @bind-Value="jobProfile.Profession" class="form-control p-2" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Birth Date:</label>
-        <InputDate @bind-Value="jobProfile.BirthDate" class="form-control p-2" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Email:</label>
-        <InputText @bind-Value="jobProfile.Email" type="email" class="form-control p-2" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">My Background:</label>
-        <InputTextArea @bind-Value="jobProfile.MyBackground" type="email" class="form-control p-2" rows="10">
-        </InputTextArea>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Job Post URL:</label>
-        <InputText typeof="text" @bind-value=@jobProfile.JobPostURL class="form-control p-2" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Company Request:</label>
-        <InputText typeof="text" @bind-value=@jobProfile.JobPostURL class="form-control p-2" />
-    </div>
-
-
-    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-</EditForm>
-
-
-
-
-
-
-
-
 <textarea @bind="RequestContent" rows="5" cols="150"></textarea>
 <textarea @bind="CompanyInformation" rows="5" cols="150"></textarea>
 <br />
-<button @onclick="ProcessRequest">Click</button>
+<button @onclick="GetInfo">Click</button>
 
 
 <div class="row">
@@ -109,75 +48,11 @@
 
 @code {
 
-    private JobProfile jobProfile = new();
-
-    protected override void OnInitialized()
-    {
-        jobProfile.MyBackground = Instructions.MyBackground;
-    }
-
-
-    public class JobProfile
-    {
-        public string LastName { get; set; } = string.Empty;
-        public string Firstname { get; set; } = string.Empty;
-        public string Profession { get; set; } = string.Empty;
-        public DateTime? BirthDate { get; set; } = null;
-        public string Email { get; set; } = string.Empty;
-        public string MyBackground { get; set; } = string.Empty;
-        public string JobPostURL { get; set; } = string.Empty;
-    }
-
-
-
-    public static async Task<string> GetPageTextContentAsync(string url)
-    {
-        using (HttpClient client = new HttpClient())
-        {
-            // Add a User-Agent header to mimic a browser
-
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
-            client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-            client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.5");
-            client.DefaultRequestHeaders.Add("Referer", url);
-
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            string htmlContent = await response.Content.ReadAsStringAsync();
-            return ExtractTextFromHtml(htmlContent);
-        }
-    }
-
-    private static string ExtractTextFromHtml(string html)
-    {
-        var doc = new HtmlDocument();
-        doc.LoadHtml(html);
-        return doc.DocumentNode.InnerText;
-    }
-
-
-    private string newTabContent = string.Empty;
-
-
-    public async Task GenerateCoverLetter()
-    {
-
-        newTabContent = await JS.InvokeAsync<string>("openNewTabAndGetContent", jobProfile.JobPostURL);
-        Console.WriteLine(newTabContent); // Write content to the console
-
-        // var t = await GetPageTextContentAsync(jobProfile.JobPostURL);
-    }
-
-    /// <summary>
-    /// ///////////////////////////////////
-    /// </summary>
-
     private bool IsLoading = false;
     private string RequestContent { get; set; } = "";
     private string CompanyInformation { get; set; } = "";
 
-    private async Task ProcessRequest()
+    private async Task GetInfo()
     {
         ShowLoader();
         BuildInstructionsCompanyInfo();
