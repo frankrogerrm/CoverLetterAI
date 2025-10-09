@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CoverLetterAI.Service\CoverLetterAI.Service.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿
+﻿@page "/"
 @rendermode InteractiveServer
 
 @using System.Text.Json;
@@ -89,7 +89,7 @@
 
     private async Task<string> PostGeminiRequest(string instructions)
     {
-        string url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=AIzaSyAgvxfKgeF5CsUXm8hQ4rPF0GNZ5_lz5To";
+        string url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAgvxfKgeF5CsUXm8hQ4rPF0GNZ5_lz5To";
         var requestBody = new
         {
             contents = new[]
@@ -243,17 +243,18 @@ We have the following job offer. I want to create a a formal cover letter in ger
 7. DONT TRANSLATE, ELABORATE THE COVER LETTER IN GERMAN FROM THE BEGINING.
 8. CORRECT ANY GERMAN GRAMMAR OR GERMAN ORTOGRAPHY MISTAKE.
 9. The Cover Letter should ALWAYS use keywords COMMING FROM Applicant Tracking Systems (ATS).
+10. before sending the result, verify and NEVER repeat or duplicate information in the body and each paragraph of the letter, REMOVE or DISMISS duplicated information.
 
 Information about me that should be included in the letter:
 
 1. My name is Frank Ramos, and I am a software engineer.
-2. My address is Mannheimer Str. 80, 69198 Schriesheim, Baden-Württemberg, Germany.
-3. My telephone number is +49 151 58827093.
+2. My address is Balzenbacher Straße 29 Dachzimme, 69488, Birkenau, Hesse, Germany.
+3. My telephone number is +49 1515 8827093.
 4. My email is frankntr@gmail.com.
 5. My background is as follows: [Senior Full-Stack Developer with a degree in Systems Engineering, strong leadership, research, and creativity skills. More than 15 years of experience working with databases, backend, and frontend, basing my expertise in MSSQL, C#, and .Net. Additionally, my experience includes Cloud Computing and Microservices].
 6. Do not include an Enclosures/Anlagen section.
-7. Always include that I speak English (C1), Spanish (native), French (B2), and Portuguese (B2). I am also studying German in daily lessons and currently I have A2 level and my goal is to reach (B2) level soon, [but do not mention it in a negative way].
-8. I will be living in Germany from {GetGermanDateFormat(14)} and I can start working right after that. Mention that I am very excited about the move because of the new experience and culture.
+7. Always include that I speak fluent English (C2), Spanish (native), French (B2), and Portuguese (B2). I am also studying German in daily lessons and currently I have A2 level and my goal is to reach (B2) level soon, [but do not mention it in a negative way].
+8. I just arrived to Germany by the end of August and I can start working right away. Mention that I am very excited about the move because of the new experience and culture (MENTION THIS ONLY ONCE IN THE DOCUMENT IN THE LAST PARAGRAPH OF THE BODY).
 9. I have already received my State of Compatibility (Zeugnisbewertung) for the Software Engineer profession.
 10. Always include this : I have worked across the USA, Canada, South America, and the UK in various multicultural environments.
 
